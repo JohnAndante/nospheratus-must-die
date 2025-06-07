@@ -14,3 +14,7 @@ config/name="nospheratus-must-die"
 run/main_scene="uid://cswka6u6smllm"
 config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://icon.svg"
+
+[autoload]
+
+GameSettings="*res://scripts/GameSettings.gd"

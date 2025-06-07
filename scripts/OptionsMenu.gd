@@ -22,7 +22,7 @@ func _ready():
 	visible = false
 
 	# Obter referência para o autoload GameSettings
-	settings_node = get_node("/root/GameSettings")
+	settings_node = GameSettings
 
 	# Configurar controles para navegação
 	controls = [
