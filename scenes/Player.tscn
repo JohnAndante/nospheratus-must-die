@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://hub3utff3g0g"]
+
+[ext_resource type="Script" uid="uid://coowwofkqp8sr" path="res://scripts/Player.gd" id="1_5n7x2"]
+[ext_resource type="Texture2D" uid="uid://djgbxpt5m2gaq" path="res://icon.svg" id="2_icon"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
+size = Vector2(32, 32)
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_5n7x2")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0, 0.8, 0.2, 1)
+scale = Vector2(0.245, 0.245)
+texture = ExtResource("2_icon")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_1")
+
+[node name="WeaponPivot" type="Node2D" parent="."]
+
+[node name="WeaponTimer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="WeaponTimer" to="." method="_on_weapon_timer_timeout"]
