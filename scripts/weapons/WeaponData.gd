@@ -10,18 +10,18 @@ extends Resource
 @export var speed_multiplier: float = 1.0
 
 func can_upgrade() -> bool:
-    return level < max_level
+	return level < max_level
 
 func upgrade():
-    if can_upgrade():
-        level += 1
-        apply_upgrade_effects()
+	if can_upgrade():
+		level += 1
+		apply_upgrade_effects()
 
 func apply_upgrade_effects():
-    pass
+	pass
 
 func shoot(player, direction: Vector2, bullet_scene):
-    pass
+	pass
 
 func get_upgrade_description() -> String:
-    return "Melhora a arma" # Texto default
+	return "Melhora a arma" # Texto default
