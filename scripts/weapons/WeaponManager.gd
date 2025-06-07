@@ -5,7 +5,7 @@ static func get_all_weapon_types() -> Array[String]:
 	return ["Pistol", "Shotgun", "Laser"]
 
 static func get_available_upgrades(weapons: Array[WeaponData]) -> Array[String]:
-	var upgrades = []
+	var upgrades: Array[String] = []
 	var weapon_descriptions = {
 		"Pistol": "Arma básica",
 		"Shotgun": "Múltiplos projéteis",
@@ -21,8 +21,8 @@ static func get_available_upgrades(weapons: Array[WeaponData]) -> Array[String]:
 			upgrades.append(weapon_type + ": " + weapon_descriptions[weapon_type])
 
 	# Adicionar upgrades de player
-	upgrades.append("health: +20 vida máxima")
-	upgrades.append("speed: +10 velocidade")
+	upgrades.append("Health: +20 vida máxima")
+	upgrades.append("Speed: +10 velocidade")
 
 	return upgrades
 

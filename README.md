@@ -1,4 +1,4 @@
-# Vampire Killers
+# Nospheratus Must Die
 
 Um jogo estilo Vampire Survivors criado em Godot.
 
