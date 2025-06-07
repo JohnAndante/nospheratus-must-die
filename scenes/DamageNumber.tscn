@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://d2wnjd1vm23nk"]
 
-[ext_resource type="Script" uid="uid://tk2iwkmfx7fq" path="res://scripts/DamageNumber.gd" id="1_damage"]
+[ext_resource type="Script" uid="uid://c2udxaivclpnc" path="res://scripts/DamageNumber.gd" id="1_damage"]
 
 [node name="DamageNumber" type="Label"]
 text = "20"

@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dgjdcyjbjcjsr"]
 
-[ext_resource type="Script" uid="uid://dvwrknbwrogrf" path="res://scripts/XPOrb.gd" id="1_xp_orb"]
-[ext_resource type="Texture2D" uid="uid://gjaxt1p10y7p" path="res://icon.svg" id="2_icon"]
+[ext_resource type="Script" uid="uid://cm5n5cnehuo14" path="res://scripts/XPOrb.gd" id="1_xp_orb"]
+[ext_resource type="Texture2D" uid="uid://djgbxpt5m2gaq" path="res://icon.svg" id="2_icon"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1"]
 radius = 8.0

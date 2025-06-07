@@ -1,9 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://bv8dwk4b7l5f2"]
+[gd_scene load_steps=6 format=3 uid="uid://c5oiume1ldvsd"]
 
-[ext_resource type="Script" uid="uid://j1cwuk5b45ok" path="res://scripts/Main.gd" id="1_8yh4f"]
-[ext_resource type="PackedScene" uid="uid://7r4x3qy8m1r6" path="res://scenes/Player.tscn" id="2_x3b7g"]
-[ext_resource type="PackedScene" uid="uid://d1i1dtpbt5f7b" path="res://scenes/UpgradeMenu.tscn" id="3_upgrade"]
-[ext_resource type="PackedScene" uid="uid://r84yras4iavx" path="res://scenes/GameOver.tscn" id="4_game_over"]
+[ext_resource type="Script" uid="uid://cjan4hu3lbgay" path="res://scripts/Main.gd" id="1_8yh4f"]
+[ext_resource type="PackedScene" uid="uid://hub3utff3g0g" path="res://scenes/Player.tscn" id="2_x3b7g"]
+[ext_resource type="PackedScene" path="res://scenes/UpgradeMenu.tscn" id="3_upgrade"]
+[ext_resource type="PackedScene" uid="uid://b0tajmw3670mq" path="res://scenes/GameOver.tscn" id="4_game_over"]
 [ext_resource type="PackedScene" path="res://scenes/PauseMenu.tscn" id="5_pause"]
 
 [node name="Main" type="Node2D"]
@@ -75,8 +75,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="GameOver" parent="UI" instance=ExtResource("4_game_over")]
-grow_horizontal = 2
-grow_vertical = 2
 
 [node name="PauseMenu" parent="UI" instance=ExtResource("5_pause")]
 grow_horizontal = 2
