@@ -73,12 +73,16 @@ func find_closest_enemy():
 	if enemies.is_empty():
 		return null
 
+	var viewport_size = get_viewport().get_visible_rect().size
+	var max_detection_range = min(viewport_size.x, viewport_size.y) * 0.6
+
 	var closest = null
 	var closest_distance = INF
 
 	for enemy in enemies:
 		var distance = global_position.distance_to(enemy.global_position)
-		if distance < closest_distance:
+
+		if distance <= max_detection_range and distance < closest_distance:
 			closest_distance = distance
 			closest = enemy
 
