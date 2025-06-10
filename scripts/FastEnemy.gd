@@ -45,12 +45,13 @@ func take_damage(damage_amount):
 		die()
 
 func die():
-	# Dropar XP orb
+	# Dropar XP orb usando call_deferred
+	call_deferred("_spawn_xp_orb")
+	died.emit(self)
+	call_deferred("queue_free")
+
+func _spawn_xp_orb():
 	var xp_orb = xp_orb_scene.instantiate()
 	get_parent().add_child(xp_orb)
 	xp_orb.global_position = global_position
-	xp_orb.xp_value = 8 # Fast enemies dão menos XP
-
-	died.emit(self)
-	# Usar call_deferred para evitar problemas durante consultas de física
-	call_deferred("queue_free")
+	xp_orb.xp_value = 8

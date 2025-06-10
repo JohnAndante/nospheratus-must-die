@@ -45,13 +45,15 @@ func take_damage(damage_amount):
 		die()
 
 func die():
-	# Dropar múltiplos XP orbs (tank enemies dão mais XP)
+	# Dropar múltiplos XP orbs usando call_deferred
+	call_deferred("_spawn_xp_orbs")
+	died.emit(self)
+	call_deferred("queue_free")
+
+func _spawn_xp_orbs():
+	# Tank enemies dão mais XP
 	for i in 3:
 		var xp_orb = xp_orb_scene.instantiate()
 		get_parent().add_child(xp_orb)
 		xp_orb.global_position = global_position + Vector2(randf_range(-20, 20), randf_range(-20, 20))
 		xp_orb.xp_value = 15
-
-	died.emit(self)
-	# Usar call_deferred para evitar problemas durante consultas de física
-	call_deferred("queue_free")
