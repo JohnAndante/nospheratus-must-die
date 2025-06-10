@@ -36,14 +36,29 @@ func _input(event):
 		return
 
 	# Navegação com teclado
-	if event.is_action_pressed("ui_down") or event.is_action_pressed("move_down"):
+	if event.is_action_pressed("move_down"):
 		navigate_down()
-	elif event.is_action_pressed("ui_up") or event.is_action_pressed("move_up"):
+	elif event.is_action_pressed("move_up"):
 		navigate_up()
 	elif event.is_action_pressed("ui_accept"):
 		buttons[current_button_index].pressed.emit()
 	elif event.is_action_pressed("ui_cancel"):
-		_on_quit_pressed()
+		print("\nCancel pressed")
+		print("Options menu visible:", options_menu.visible)
+		print("Quit dialog visible:", quit_dialog.visible)
+		# Se estiver no menu de opções ou diálogo de sair, fechar o menu ou diálogo
+		if options_menu.visible:
+			print("Closing options menu")
+			options_menu.hide_menu()
+			play_button.grab_focus()
+		elif quit_dialog.visible:
+			print("Closing quit dialog")
+			quit_dialog.hide()
+			play_button.grab_focus()
+		else:
+			print("Exiting game")
+			# Se não estiver em nenhum menu, sair do jogo
+			_on_quit_pressed()
 
 func navigate_down():
 	current_button_index = (current_button_index + 1) % buttons.size()
