@@ -1,17 +1,19 @@
-[gd_scene load_steps=6 format=3 uid="uid://c5oiume1ldvsd"]
+[gd_scene load_steps=7 format=3 uid="uid://c5oiume1ldvsd"]
 
 [ext_resource type="Script" uid="uid://cjan4hu3lbgay" path="res://scripts/Main.gd" id="1_8yh4f"]
+[ext_resource type="Script" uid="uid://c2d7fqxgajcup" path="res://scripts/CameraController.gd" id="2_c01mt"]
 [ext_resource type="PackedScene" uid="uid://hub3utff3g0g" path="res://scenes/Player.tscn" id="2_x3b7g"]
-[ext_resource type="PackedScene" path="res://scenes/UpgradeMenu.tscn" id="3_upgrade"]
+[ext_resource type="PackedScene" uid="uid://cli5xijbmilum" path="res://scenes/UpgradeMenu.tscn" id="3_upgrade"]
 [ext_resource type="PackedScene" uid="uid://b0tajmw3670mq" path="res://scenes/GameOver.tscn" id="4_game_over"]
-[ext_resource type="PackedScene" path="res://scenes/PauseMenu.tscn" id="5_pause"]
+[ext_resource type="PackedScene" uid="uid://bhpiaox8cjkwk" path="res://scenes/PauseMenu.tscn" id="5_pause"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_8yh4f")
 
-[node name="Player" parent="." instance=ExtResource("2_x3b7g")]
+[node name="Camera2D" type="Camera2D" parent="."]
+script = ExtResource("2_c01mt")
 
-[node name="Camera2D" type="Camera2D" parent="Player"]
+[node name="Player" parent="." instance=ExtResource("2_x3b7g")]
 
 [node name="EnemySpawner" type="Node2D" parent="."]
 
@@ -71,11 +73,10 @@ text = "Kills: 0/10"
 horizontal_alignment = 2
 
 [node name="UpgradeMenu" parent="UI" instance=ExtResource("3_upgrade")]
-grow_horizontal = 2
-grow_vertical = 2
+visible = false
 
 [node name="GameOver" parent="UI" instance=ExtResource("4_game_over")]
+visible = false
 
 [node name="PauseMenu" parent="UI" instance=ExtResource("5_pause")]
-grow_horizontal = 2
-grow_vertical = 2
+visible = false

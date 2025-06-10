@@ -6,6 +6,7 @@ signal xp_changed(xp, xp_to_next)
 signal show_upgrade_menu
 signal player_died
 
+# Variáveis do jogador
 @export var speed = 200.0
 @export var max_health = 100
 var health = 100
@@ -13,6 +14,7 @@ var level = 1
 var xp = 0
 var xp_to_next = 100
 
+# Variáveis relacionadas ao movimento
 @onready var weapon_pivot = $WeaponPivot
 @onready var weapon_timer = $WeaponTimer
 
