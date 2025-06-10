@@ -20,12 +20,10 @@ var xp_to_next = 100
 
 var bullet_scene = preload("res://scenes/Bullet.tscn")
 var weapons: Array[WeaponData] = []
-var current_weapon_index = 0
 
 func _ready():
 	health = max_health
 	weapons.append(PistolData.new()) # Começa com pistola
-	weapon_timer.wait_time = weapons[0].fire_rate
 
 	health_changed.emit(health, max_health)
 	level_changed.emit(level)
@@ -34,6 +32,9 @@ func _ready():
 func _physics_process(_delta):
 	handle_input()
 	move_and_slide()
+
+	# Verificar e atirar com cada arma independentemente
+	check_and_shoot_weapons()
 
 func handle_input():
 	var input_vector = Vector2.ZERO
@@ -49,12 +50,8 @@ func handle_input():
 
 	velocity = input_vector.normalized() * speed
 
-func _on_weapon_timer_timeout():
-	if weapons.size() > 0:
-		shoot_current_weapon()
-
-func shoot_current_weapon():
-	var weapon = weapons[current_weapon_index]
+func check_and_shoot_weapons():
+	var current_time = Time.get_unix_time_from_system()
 
 	# Encontrar o inimigo mais próximo
 	var closest_enemy = find_closest_enemy()
@@ -63,12 +60,11 @@ func shoot_current_weapon():
 
 	var direction = (closest_enemy.global_position - global_position).normalized()
 
-	weapon.shoot(self, direction, bullet_scene)
-
-	# Trocar para próxima arma se tiver múltiplas
-	current_weapon_index = (current_weapon_index + 1) % weapons.size()
-	if weapons.size() > current_weapon_index:
-		weapon_timer.wait_time = weapons[current_weapon_index].fire_rate
+	# Verificar cada arma de forma independente
+	for weapon in weapons:
+		if weapon.can_shoot(current_time):
+			weapon.shoot(self, direction, bullet_scene)
+			weapon.last_shot_time = current_time
 
 func find_closest_enemy():
 	var enemies = get_tree().get_nodes_in_group("enemies")
@@ -124,7 +120,6 @@ func level_up():
 
 	# Mostrar menu de upgrade
 	show_upgrade_menu.emit()
-
 	print("Level Up! Nível ", level)
 
 func add_weapon(weapon: WeaponData):
