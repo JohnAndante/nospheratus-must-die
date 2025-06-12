@@ -16,6 +16,7 @@ var xp = 0
 var xp_to_next = 100
 
 var detection_range = 200.0  # Alcance de detecção de inimigos
+var regeneration_rate = 0.0  # Vida por segundo
 
 # Variáveis relacionadas ao movimento
 @onready var weapon_pivot = $WeaponPivot
@@ -41,6 +42,10 @@ func _physics_process(_delta):
 
 	# Verificar e atirar com cada arma independentemente
 	check_and_shoot_weapons()
+	# Aplicar regeneração se ativa
+	if regeneration_rate > 0 and health < max_health:
+		health = min(max_health, health + regeneration_rate * _delta)
+		health_changed.emit(health, max_health)
 
 func handle_input():
 	var input_vector = Vector2.ZERO
@@ -76,9 +81,6 @@ func find_closest_enemy():
 	var enemies = get_tree().get_nodes_in_group("enemies")
 	if enemies.is_empty():
 		return null
-
-	var viewport_size = get_viewport().get_visible_rect().size
-	var max_detection_range = min(viewport_size.x, viewport_size.y) * 0.6
 
 	var closest = null
 	var closest_distance = INF
@@ -148,6 +150,13 @@ func upgrade_stats(stat_type: String, amount: int):
 			health_changed.emit(health, max_health)
 		"speed":
 			speed += amount
+		"detection":
+			detection_range += amount
+			print("Alcance de detecção aumentado para: ", detection_range)
+			queue_redraw()  # Forçar redesenho do círculo
+		"regeneration":
+			regeneration_rate += amount
+			print("Regeneração aumentada para: ", regeneration_rate, " HP/s")
 # Debug visual - círculos de detecção
 func _draw():
 	if OS.is_debug_build():
