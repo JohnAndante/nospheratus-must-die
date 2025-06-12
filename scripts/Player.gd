@@ -17,6 +17,7 @@ var xp_to_next = 100
 
 var detection_range = 200.0  # Alcance de detecção de inimigos
 var regeneration_rate = 0.0  # Vida por segundo
+var critical_chance = 0.0    # Chance de crítico
 var armor_reduction = 0.0    # Redução de dano
 
 # Variáveis relacionadas ao movimento
@@ -165,6 +166,9 @@ func upgrade_stats(stat_type: String, amount: int):
 		"regeneration":
 			regeneration_rate += amount
 			print("Regeneração aumentada para: ", regeneration_rate, " HP/s")
+		"luck":
+			critical_chance += amount
+			print("Chance de crítico aumentada para: ", critical_chance, "%")
 		"armor":
 			armor_reduction += amount
 			print("Redução de dano aumentada para: ", armor_reduction, "%")
