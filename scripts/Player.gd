@@ -13,11 +13,13 @@ signal player_died
 var health = 100
 var level = 1
 var xp = 0
-var xp_to_next = 100
+var xp_to_next = 30
 
 var detection_range = 200.0  # Alcance de detecção de inimigos
 var regeneration_rate = 0.0  # Vida por segundo
 var critical_chance = 0.0    # Chance de crítico
+var base_magnet_range = 20.0 # Alcance base para coleta de XP
+var xp_magnet_range = 0.0    # Alcance extra para coleta de XP
 var armor_reduction = 0.0    # Redução de dano
 
 # Variáveis relacionadas ao movimento
@@ -96,6 +98,16 @@ func find_closest_enemy():
 
 	return closest
 
+func check_and_attract_xp_orbs():
+	var xp_orbs = get_tree().get_nodes_in_group("xp_orbs")
+	var total_magnet_range = base_magnet_range + xp_magnet_range
+
+	for orb in xp_orbs:
+		if orb.has_method("attract_to_player"):
+			var distance = global_position.distance_to(orb.global_position)
+			if distance <= total_magnet_range:
+				orb.attract_to_player(self)
+
 func take_damage(damage):
 	# Aplicar redução de dano por armadura
 	var final_damage = damage
@@ -130,14 +142,26 @@ func gain_xp(amount):
 func level_up():
 	level += 1
 	xp = 0
-	xp_to_next = int(xp_to_next * 1.2)
+
+	# TODO: Implementar função que calcule isso automaticamente
+	var multiplier: float
+	if level <= 10:
+		multiplier = 1.10
+	elif level <= 20:
+		multiplier = 1.15
+	elif level <= 30:
+		multiplier = 1.20
+	else:
+		multiplier = 1.25
+
+	xp_to_next = int(xp_to_next * multiplier)
 
 	level_changed.emit(level)
 	xp_changed.emit(xp, xp_to_next)
 
 	# Mostrar menu de upgrade
 	show_upgrade_menu.emit()
-	print("Level Up! Nível ", level)
+	print("Level Up! Nível ", level, " - Próximo nível: ", xp_to_next, " XP")
 
 func add_weapon(weapon: WeaponData):
 	weapons.append(weapon)
@@ -169,11 +193,22 @@ func upgrade_stats(stat_type: String, amount: int):
 		"luck":
 			critical_chance += amount
 			print("Chance de crítico aumentada para: ", critical_chance, "%")
+		"magnet":
+			xp_magnet_range += amount
+			print("Alcance de coleta de XP aumentado para: ", xp_magnet_range)
+			queue_redraw()  # Forçar redesenho do círculo
 		"armor":
 			armor_reduction += amount
 			print("Redução de dano aumentada para: ", armor_reduction, "%")
+func get_magnet_range() -> float:
+	return base_magnet_range + xp_magnet_range
+
 # Debug visual - círculos de detecção
 func _draw():
 	if OS.is_debug_build():
 		# Círculo de detecção de inimigos (amarelo) - usa o detection_range
 		draw_arc(Vector2.ZERO, detection_range, 0, TAU, 64, Color.YELLOW, 2.0)
+
+		# Círculo de atração de XP (azul) - usa o alcance total do magnetismo
+		var total_magnet_range = base_magnet_range + xp_magnet_range
+		draw_arc(Vector2.ZERO, total_magnet_range, 0, TAU, 64, Color.CYAN, 2.0)

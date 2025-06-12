@@ -1,6 +1,6 @@
 extends Area2D
 
-@export var xp_value = 10
+@export var xp_value = 1
 @export var attraction_speed = 150.0
 @export var collection_speed = 300.0
 
@@ -8,6 +8,9 @@ var target: Node2D = null
 var is_attracted = false
 
 func _ready():
+	# Adicionar ao grupo para o Player encontrar
+	add_to_group("xp_orbs")
+
 	# Animação de spawn
 	scale = Vector2.ZERO
 	var tween = create_tween()
@@ -24,10 +27,15 @@ func _physics_process(delta):
 		if global_position.distance_to(target.global_position) < 20:
 			collect()
 
-func _on_collect_area_body_entered(body):
-	if body.has_method("gain_xp") and not is_attracted:
-		target = body
+# Função chamada pelo Player para ativar a atração
+func attract_to_player(player: Node2D):
+	if not is_attracted:
+		target = player
 		is_attracted = true
+
+func _on_collect_area_body_entered(_body):
+	# Esta função pode ser mantida como backup, mas não é mais necessária
+	pass
 
 func collect():
 	if target and target.has_method("gain_xp"):
