@@ -17,6 +17,7 @@ var xp_to_next = 100
 
 var detection_range = 200.0  # Alcance de detecção de inimigos
 var regeneration_rate = 0.0  # Vida por segundo
+var armor_reduction = 0.0    # Redução de dano
 
 # Variáveis relacionadas ao movimento
 @onready var weapon_pivot = $WeaponPivot
@@ -95,7 +96,14 @@ func find_closest_enemy():
 	return closest
 
 func take_damage(damage):
-	health -= damage
+	# Aplicar redução de dano por armadura
+	var final_damage = damage
+	if armor_reduction > 0:
+		final_damage = damage * (1.0 - armor_reduction / 100.0)
+		final_damage = max(1, int(final_damage))  # Garantir pelo menos 1 de dano
+
+	print("Player recebeu ", final_damage, " de dano (original: ", damage, ")")
+	health -= final_damage
 	health = max(0, health)
 	health_changed.emit(health, max_health)
 
@@ -157,6 +165,9 @@ func upgrade_stats(stat_type: String, amount: int):
 		"regeneration":
 			regeneration_rate += amount
 			print("Regeneração aumentada para: ", regeneration_rate, " HP/s")
+		"armor":
+			armor_reduction += amount
+			print("Redução de dano aumentada para: ", armor_reduction, "%")
 # Debug visual - círculos de detecção
 func _draw():
 	if OS.is_debug_build():
