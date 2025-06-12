@@ -9,10 +9,13 @@ signal player_died
 # Variáveis do jogador
 @export var speed = 200.0
 @export var max_health = 100
+
 var health = 100
 var level = 1
 var xp = 0
 var xp_to_next = 100
+
+var detection_range = 200.0  # Alcance de detecção de inimigos
 
 # Variáveis relacionadas ao movimento
 @onready var weapon_pivot = $WeaponPivot
@@ -22,8 +25,11 @@ var bullet_scene = preload("res://scenes/Bullet.tscn")
 var weapons: Array[WeaponData] = []
 
 func _ready():
+	# Adicionar o player ao grupo para identificação
+	add_to_group("player")
+
 	health = max_health
-	weapons.append(PistolData.new()) # Começa com pistola
+	weapons.append(PistolData.new())
 
 	health_changed.emit(health, max_health)
 	level_changed.emit(level)
@@ -80,7 +86,7 @@ func find_closest_enemy():
 	for enemy in enemies:
 		var distance = global_position.distance_to(enemy.global_position)
 
-		if distance <= max_detection_range and distance < closest_distance:
+		if distance <= detection_range and distance < closest_distance:
 			closest_distance = distance
 			closest = enemy
 
@@ -142,3 +148,8 @@ func upgrade_stats(stat_type: String, amount: int):
 			health_changed.emit(health, max_health)
 		"speed":
 			speed += amount
+# Debug visual - círculos de detecção
+func _draw():
+	if OS.is_debug_build():
+		# Círculo de detecção de inimigos (amarelo) - usa o detection_range
+		draw_arc(Vector2.ZERO, detection_range, 0, TAU, 64, Color.YELLOW, 2.0)
