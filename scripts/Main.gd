@@ -34,7 +34,7 @@ func _ready():
 	upgrade_menu.upgrade_selected.connect(_on_upgrade_selected)
 
 func _unhandled_input(event):
-	if event.is_action_pressed("ui_cancel"): # ESC
+	if event.is_action_pressed("ui_cancel"):
 		pause_menu.toggle_pause()
 
 func _process(delta):
@@ -133,7 +133,7 @@ func update_kill_count_ui():
 	kill_count_label.text = "Kills: " + str(enemies_killed_this_wave) + "/" + str(enemies_per_wave)
 
 func _on_show_upgrade_menu():
-	var available_upgrades = WeaponManager.get_available_upgrades(player.get_weapons())
+	var available_upgrades = WeaponManager.get_available_upgrades(player.get_weapons(), player.level)
 	upgrade_menu.show_upgrades(available_upgrades)
 
 func _on_upgrade_selected(upgrade_type: String):
@@ -145,10 +145,20 @@ func apply_upgrade_to_player(upgrade_name: String):
 	match upgrade_name:
 		"Pistol", "Shotgun", "Laser":
 			apply_weapon_upgrade(upgrade_name)
-		"health":
-			player.upgrade_stats("health", 20)
-		"speed":
-			player.upgrade_stats("speed", 10)
+		"Health":
+			player.upgrade_stats("health", 25)
+		"Speed":
+			player.upgrade_stats("speed", 15)
+		"Detection":
+			player.upgrade_stats("detection", 25)
+		"Regeneration":
+			player.upgrade_stats("regeneration", 2)
+		"Luck":
+			player.upgrade_stats("luck", 10)
+		"Magnet":
+			player.upgrade_stats("magnet", 15)
+		"Armor":
+			player.upgrade_stats("armor", 15)
 
 func apply_weapon_upgrade(weapon_name: String):
 	if player.has_weapon(weapon_name):
