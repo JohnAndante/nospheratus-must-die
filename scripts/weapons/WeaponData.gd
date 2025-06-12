@@ -2,7 +2,7 @@ class_name WeaponData
 extends Resource
 
 @export var name: String
-@export var damage: int
+@export var damage: float
 @export var fire_rate: float
 @export var level: int = 1
 @export var max_level: int = 5

@@ -3,7 +3,7 @@ extends WeaponData
 
 func _init():
     name = "Shotgun"
-    damage = 15
+    damage = 12.0
     fire_rate = 1.5
     max_level = 5
     projectiles = 2
@@ -13,11 +13,11 @@ func apply_upgrade_effects():
         2, 6, 10:  # Mais projéteis
             projectiles += 1
         3, 7:      # Mais dano
-            damage += 8
+            damage += damage * 0.15
         4, 8:      # Tiro mais rápido
             fire_rate = max(0.8, fire_rate - 0.2)
         5, 9:      # Combo: dano + projétil
-            damage += 5
+            damage += damage * 0.10
             projectiles += 1
 
 func get_angle_offset() -> float:
@@ -45,11 +45,11 @@ func get_upgrade_description() -> String:
         2, 6, 10:
             return "Mais projéteis +1"
         3, 7:
-            return "Dano +8"
+            return "Dano +15%"
         4, 8:
             return "Tiro mais rápido (-0.2s)"
         5, 9:
-            return "Dano +5 e projéteis +1"
+            return "Dano +10% e mais projéteis +1"
         _:
             return "Shotgun melhorada"
 
