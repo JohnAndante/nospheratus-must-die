@@ -17,10 +17,10 @@ var tank_enemy_scene = preload("res://scenes/TankEnemy.tscn")
 
 var enemies = []
 var spawn_timer = 0.0
-var spawn_interval = 2.0
+var spawn_interval = 2.8
 var wave = 1
 var enemies_killed_this_wave = 0
-var enemies_per_wave = 10
+var enemies_per_wave = 12
 
 func _ready():
 	# Configurar sinais do player
@@ -46,19 +46,25 @@ func _process(delta):
 func spawn_enemy():
 	var enemy_scene_to_use = enemy_scene
 
-	# Escolher tipo de inimigo baseado na wave
+	# Escolher tipo de inimigo baseado na wave com chances progressivas
 	var rand = randf()
-	if wave >= 3 and rand < 0.3:
+	var fast_chance = min(0.4, 0.1 + (wave * 0.05))  # Aumenta chance com wave
+	var tank_chance = min(0.3, 0.05 + (wave * 0.03))  # Aumenta chance com wave
+
+	if wave >= 2 and rand < fast_chance:
 		if fast_enemy_scene:
 			enemy_scene_to_use = fast_enemy_scene
-	elif wave >= 5 and rand < 0.2:
+	elif wave >= 4 and rand < (fast_chance + tank_chance):
 		if tank_enemy_scene:
 			enemy_scene_to_use = tank_enemy_scene
 
 	var enemy = enemy_scene_to_use.instantiate()
 
-#	Spawnar inimigo fora da tela
-	var spawn_distance = 600
+	# Aplicar difficulty scaling nos inimigos
+	apply_difficulty_scaling(enemy)
+
+	# Spawnar inimigo fora da tela
+	var spawn_distance = 700
 	var angle = randf() * TAU
 	var spawn_pos = player.global_position + Vector2(cos(angle), sin(angle)) * spawn_distance
 
@@ -82,15 +88,46 @@ func _on_enemy_died(enemy):
 func next_wave():
 	wave += 1
 	enemies_killed_this_wave = 0
-	enemies_per_wave = int(enemies_per_wave * 1.2)
+	enemies_per_wave = int(enemies_per_wave * 1.3)
 
-	# Aumentar dificuldade
-	spawn_interval = max(0.5, spawn_interval * 0.9)
-#
+	# Aumentar dificuldade progressivamente
+	spawn_interval = max(0.3, spawn_interval * 0.85)
+
+	# Aumentar vida e dano dos inimigos a cada 3 waves
+	if wave % 3 == 0:
+		increase_enemy_difficulty()
+
+	# Spawnar inimigos mais fortes em waves específicas
+	if wave % 5 == 0:
+		print("Wave especial! Inimigos mais fortes aparecem!")
+
 	# Atualizar UI
 	wave_label.text = "Wave: " + str(wave)
 	update_kill_count_ui()
 	print("Wave ", wave, " começou! Inimigos para matar: ", enemies_per_wave)
+	print("Intervalo de spawn: ", spawn_interval, "s")
+
+func increase_enemy_difficulty():
+	# Esta função será chamada pelos inimigos quando spawnarem
+	# Vamos criar um multiplicador global de dificuldade
+	var difficulty_multiplier = 1.0 + (wave * 0.1)  # +10% por wave
+	print("Dificuldade aumentada! Multiplicador: ", difficulty_multiplier)
+
+func apply_difficulty_scaling(enemy):
+	# Multiplicador de dificuldade baseado na wave
+	var difficulty_multiplier = 1.0 + (wave * 0.15)  # +15% por wave
+
+	# Aumentar vida e dano do inimigo
+	if enemy.has_method("set_difficulty"):
+		enemy.set_difficulty(difficulty_multiplier)
+	else:
+		# Aplicar diretamente se não tiver método específico
+		enemy.health = int(enemy.health * difficulty_multiplier)
+		enemy.damage = int(enemy.damage * difficulty_multiplier)
+
+		# Limitar o scaling para não ficar impossível
+		enemy.health = min(enemy.health, enemy.health * 3)  # Máximo 3x a vida original
+		enemy.damage = min(enemy.damage, enemy.damage * 2)  # Máximo 2x o dano original
 
 func update_kill_count_ui():
 	kill_count_label.text = "Kills: " + str(enemies_killed_this_wave) + "/" + str(enemies_per_wave)
