@@ -44,8 +44,16 @@ func _physics_process(_delta):
 	handle_input()
 	move_and_slide()
 
-	# Verificar e atirar com cada arma independentemente
-	check_and_shoot_weapons()
+	# Verificar e atirar com cada arma independentemente (só se não estiver pausado)
+	if not get_tree().paused:
+		check_and_shoot_weapons()
+		check_and_attract_xp_orbs()
+	else:
+		# Atualizar tempo das armas quando pausado para evitar acúmulo
+		var current_time = Time.get_unix_time_from_system()
+		for weapon in weapons:
+			weapon.last_shot_time = current_time
+
 	# Aplicar regeneração se ativa
 	if regeneration_rate > 0 and health < max_health:
 		health = min(max_health, health + regeneration_rate * _delta)
@@ -200,6 +208,7 @@ func upgrade_stats(stat_type: String, amount: int):
 		"armor":
 			armor_reduction += amount
 			print("Redução de dano aumentada para: ", armor_reduction, "%")
+
 func get_magnet_range() -> float:
 	return base_magnet_range + xp_magnet_range
 
