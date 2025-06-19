@@ -1,20 +1,45 @@
-[gd_scene load_steps=4 format=3 uid="uid://hub3utff3g0g"]
+[gd_scene load_steps=4 format=4 uid="uid://hub3utff3g0g"]
 
 [ext_resource type="Script" uid="uid://coowwofkqp8sr" path="res://scripts/Player.gd" id="1_5n7x2"]
-[ext_resource type="Texture2D" uid="uid://djgbxpt5m2gaq" path="res://icon.svg" id="2_icon"]
+
+[sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_p0vlq"]
+_data = PackedByteArray("AAADAAUAAAABAAAADAAAABYAAACqAAAAUklGRqIAAABXRUJQVlA4TJYAAAAvC0AFEEegJJIk59ixYzm/f5FvQ1EjKczRyw8N+NeFDBS1kQLt78IO+BeEB5j/AMD//3ZwH3TiXDalr5EVOI1tW3W2+09/8FwBNUA6JXBio968Cu49fQdqiOj/BPDTFOB8lWBoTYEqv6bA0F6zb3BqI/B+egA3OciSIEX98bq5YBmjYBxvgnW9+cdocIxThJqPlvoM0AI=")
+size_override = Vector2(12, 22)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
-size = Vector2(32, 32)
+size = Vector2(16, 17)
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_5n7x2")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(0, 0.8, 0.2, 1)
-scale = Vector2(0.245, 0.245)
-texture = ExtResource("2_icon")
+z_index = 10
+y_sort_enabled = true
+texture_filter = 1
+position = Vector2(0, -6)
+scale = Vector2(2, 2)
+texture = SubResource("PortableCompressedTexture2D_p0vlq")
+metadata/_aseprite_wizard_interface_config_ = {
+"pending_changes": {}
+}
+metadata/_aseprite_wizard_config_ = {
+"embed_tex": true,
+"i_mode": 1,
+"keep_anim_length": false,
+"layers": [],
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"player": "",
+"slice": "",
+"source": "res://assets/player.aseprite",
+"source_uid": 3560051089330429090
+}
+metadata/_aseprite_wizard_source_file_hash_ = "c538f852c3aeabe0cf3352e7fc2cbf30"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 7.5)
 shape = SubResource("RectangleShape2D_1")
 
 [node name="WeaponPivot" type="Node2D" parent="."]

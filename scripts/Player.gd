@@ -7,7 +7,7 @@ signal show_upgrade_menu
 signal player_died
 
 # Variáveis do jogador
-@export var speed = 200.0
+@export var speed = 100.0
 @export var max_health = 100
 
 var health = 100
@@ -25,6 +25,9 @@ var armor_reduction = 0.0    # Redução de dano
 # Variáveis relacionadas ao movimento
 @onready var weapon_pivot = $WeaponPivot
 @onready var weapon_timer = $WeaponTimer
+
+# Sprite do jogador
+@onready var sprite = $Sprite2D
 
 var bullet_scene = preload("res://scenes/Bullet.tscn")
 var weapons: Array[WeaponData] = []
@@ -72,6 +75,10 @@ func handle_input():
 		input_vector.y += 1
 
 	velocity = input_vector.normalized() * speed
+
+	# Virar o sprite para a direção do movimento
+	if input_vector.x != 0:
+		sprite.flip_h = input_vector.x > 0
 
 func check_and_shoot_weapons():
 	var current_time = Time.get_unix_time_from_system()
