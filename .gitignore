@@ -1,10 +1,12 @@
 # Godot 4+ specific ignores
 .godot/
-.import/
 /android/
 
 # Arquivos UID do Godot
 *.uid
+
+# Arquivos IMPORT do Godot
+*.import
 
 # Imported translations (automatically generated from CSV files)
 *.translation
