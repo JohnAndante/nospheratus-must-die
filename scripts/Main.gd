@@ -1,5 +1,8 @@
 extends Node2D
 
+# Modo Debug
+var debug_mode = false
+
 @onready var player = $Player
 @onready var enemy_spawner = $EnemySpawner
 @onready var health_bar = $UI/HealthBar
@@ -7,6 +10,7 @@ extends Node2D
 @onready var xp_bar = $UI/XPBar
 @onready var wave_label = $UI/WaveLabel
 @onready var kill_count_label = $UI/KillCountLabel
+@onready var debug_label = $UI/DebugLabel
 @onready var upgrade_menu = $UI/UpgradeMenu
 @onready var game_over_screen = $UI/GameOver
 @onready var pause_menu = $UI/PauseMenu
@@ -33,9 +37,36 @@ func _ready():
 	# Configurar menu de upgrade
 	upgrade_menu.upgrade_selected.connect(_on_upgrade_selected)
 
+	# Inicializar UI de debug
+	update_debug_ui()
+
 func _unhandled_input(event):
 	if event.is_action_pressed("ui_cancel"):
 		pause_menu.toggle_pause()
+
+	# Debug mode toggle (F10)
+	if event is InputEventKey and event.pressed and event.keycode == KEY_F10:
+		debug_mode = !debug_mode
+		update_debug_ui()
+		print("Debug mode: ", "ON" if debug_mode else "OFF")
+
+	# Debug: Click to kill enemies
+	if debug_mode and event is InputEventMouseButton:
+		if event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+			var mouse_pos = get_global_mouse_position()
+			var clicked_enemy = get_enemy_at_position(mouse_pos)
+			if clicked_enemy:
+				var enemy_type = clicked_enemy.get_script().get_path().get_file().replace(".gd", "")
+				print("Debug: Matando inimigo clicado - Tipo: ", enemy_type, " | Vida: ", clicked_enemy.health)
+				clicked_enemy.take_damage(9999)  # Dano suficiente para matar qualquer inimigo
+			else:
+				print("Debug: Nenhum inimigo encontrado na posição clicada")
+
+		# Debug: Right click to spawn enemy
+		elif event.pressed and event.button_index == MOUSE_BUTTON_RIGHT:
+			var mouse_pos = get_global_mouse_position()
+			spawn_enemy_at_position(mouse_pos)
+			print("Debug: Spawnando inimigo na posição do mouse: ", mouse_pos)
 
 func _process(delta):
 	spawn_timer += delta
@@ -186,3 +217,66 @@ func _on_player_level_changed(level):
 
 func _on_player_xp_changed(xp, xp_to_next):
 	xp_bar.value = (float(xp) / xp_to_next) * 100
+
+
+
+func update_debug_ui():
+	if debug_label:
+		if debug_mode:
+			debug_label.text = "DEBUG MODE - L-Click: Matar | R-Click: Spawnar | F10: Toggle"
+		else:
+			debug_label.text = ""
+
+func get_enemy_at_position(mouse_position: Vector2) -> CharacterBody2D:
+	# Verificar se há um inimigo na posição clicada
+	for enemy in enemies:
+		if enemy == null:
+			continue
+
+		# Verificar se a posição está dentro da área do inimigo
+		var distance = mouse_position.distance_to(enemy.global_position)
+
+		# Ajustar tolerância baseado no tipo de inimigo
+		var click_tolerance = 32.0  # Valor padrão
+
+		# Verificar tipo de inimigo e ajustar tolerância
+		var script_path = enemy.get_script().get_path().get_file()
+		match script_path:
+			"TankEnemy.gd":
+				click_tolerance = 50.0  # Tank é maior
+			"FastEnemy.gd":
+				click_tolerance = 25.0  # Fast é menor
+			"Enemy.gd":
+				click_tolerance = 32.0  # Normal
+
+		if distance <= click_tolerance:
+			return enemy
+
+	return null
+
+func spawn_enemy_at_position(spawn_pos: Vector2):
+	var enemy_scene_to_use = enemy_scene
+
+	# Escolher tipo de inimigo baseado na wave com chances progressivas
+	var rand = randf()
+	var fast_chance = min(0.4, 0.1 + (wave * 0.05))  # Aumenta chance com wave
+	var tank_chance = min(0.3, 0.05 + (wave * 0.03))  # Aumenta chance com wave
+
+	if wave >= 2 and rand < fast_chance:
+		if fast_enemy_scene:
+			enemy_scene_to_use = fast_enemy_scene
+	elif wave >= 4 and rand < (fast_chance + tank_chance):
+		if tank_enemy_scene:
+			enemy_scene_to_use = tank_enemy_scene
+
+	var enemy = enemy_scene_to_use.instantiate()
+
+	# Aplicar difficulty scaling nos inimigos
+	apply_difficulty_scaling(enemy)
+
+	enemy.global_position = spawn_pos
+	enemy.target = player
+	enemy.died.connect(_on_enemy_died)
+
+	add_child(enemy)
+	enemies.append(enemy)
