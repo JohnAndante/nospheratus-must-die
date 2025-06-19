@@ -1,16 +1,40 @@
-[gd_scene load_steps=4 format=3 uid="uid://dgjdcyjbjcjsr"]
+[gd_scene load_steps=4 format=4 uid="uid://dgjdcyjbjcjsr"]
 
 [ext_resource type="Script" uid="uid://cm5n5cnehuo14" path="res://scripts/XPOrb.gd" id="1_xp_orb"]
-[ext_resource type="Texture2D" uid="uid://dtg56hqiqrdph" path="res://assets/xp_orb.png" id="2_ag5pc"]
+
+[sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_5f2ua"]
+_data = PackedByteArray("AAADAAUAAAABAAAACAAAAAgAAACOAAAAUklGRoYAAABXRUJQVlA4THoAAAAvB8ABEFegmJEkaP6DsP4qyzFrcC+LokiSmsuJ5F8GTjCBBN4YbYCETOcG/r+DxA9mZ7fMfwDAd0enP6H/cIfeuWapy8q4BExra2vzUz0OyWEFFK63AbJCmCAnA2SFbpGZOKL/ATqB+j86helTHv00yzjtNty3c0grAA==")
+size_override = Vector2(8, 8)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1"]
-radius = 2.66667
+radius = 3.0
 
 [node name="XPOrb" type="Area2D"]
 script = ExtResource("1_xp_orb")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_ag5pc")
+texture_filter = 1
+scale = Vector2(2, 2)
+texture = SubResource("PortableCompressedTexture2D_5f2ua")
+metadata/_aseprite_wizard_interface_config_ = {
+"layer_section": false,
+"pending_changes": {}
+}
+metadata/_aseprite_wizard_config_ = {
+"embed_tex": true,
+"i_mode": 1,
+"keep_anim_length": false,
+"layers": [],
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"player": "",
+"slice": "",
+"source": "res://assets/xp_orb.aseprite",
+"source_uid": 7244431029739093278
+}
+metadata/_aseprite_wizard_source_file_hash_ = "f94b145c0750ea2827fa352eae13d5f4"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2(0.5, 0.5)

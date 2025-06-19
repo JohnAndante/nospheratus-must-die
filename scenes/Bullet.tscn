@@ -1,7 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://bet8do5gac8fa"]
+[gd_scene load_steps=4 format=4 uid="uid://bet8do5gac8fa"]
 
 [ext_resource type="Script" uid="uid://byp1ilpofrlqm" path="res://scripts/Bullet.gd" id="1_7y2k8"]
-[ext_resource type="Texture2D" uid="uid://cmwa12eqr0pa3" path="res://assets/bullet.png" id="2_p1sfj"]
+
+[sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_hf8mt"]
+_data = PackedByteArray("AAADAAUAAAABAAAABAAAAAQAAABMAAAAUklGRkQAAABXRUJQVlA4TDgAAAAvA8AAECdAIEAZ60EYikzAMrYGQ1BkApaxNRiCmv8A/K9SbQMFbduw2R4ILYMRmIZgEf2Pd2+yBA==")
+size_override = Vector2(4, 4)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4utqk"]
 radius = 4.0
@@ -11,7 +14,30 @@ script = ExtResource("1_7y2k8")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 0, 1)
-texture = ExtResource("2_p1sfj")
+texture_filter = 1
+scale = Vector2(2, 2)
+texture = SubResource("PortableCompressedTexture2D_hf8mt")
+metadata/_aseprite_wizard_interface_config_ = {
+"layer_section": false,
+"output_section": false,
+"pending_changes": {},
+"slice_section": false
+}
+metadata/_aseprite_wizard_config_ = {
+"embed_tex": true,
+"i_mode": 1,
+"keep_anim_length": false,
+"layers": [],
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"player": "",
+"slice": "",
+"source": "res://assets/bullet.aseprite",
+"source_uid": 2961375614489581101
+}
+metadata/_aseprite_wizard_source_file_hash_ = "ccae42a9bb5a79c271777efc97882389"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_4utqk")
