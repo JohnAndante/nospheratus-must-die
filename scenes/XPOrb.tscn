@@ -39,11 +39,3 @@ metadata/_aseprite_wizard_source_file_hash_ = "f94b145c0750ea2827fa352eae13d5f4"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2(0.5, 0.5)
 shape = SubResource("CircleShape2D_1")
-
-[node name="CollectArea" type="Area2D" parent="."]
-
-[node name="CollectCollision" type="CollisionShape2D" parent="CollectArea"]
-scale = Vector2(3, 3)
-shape = SubResource("CircleShape2D_1")
-
-[connection signal="body_entered" from="CollectArea" to="." method="_on_collect_area_body_entered"]

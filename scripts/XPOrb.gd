@@ -33,10 +33,6 @@ func attract_to_player(player: Node2D):
 		target = player
 		is_attracted = true
 
-func _on_collect_area_body_entered(_body):
-	# Esta função pode ser mantida como backup, mas não é mais necessária
-	pass
-
 func collect():
 	if target and target.has_method("gain_xp"):
 		target.gain_xp(xp_value)
