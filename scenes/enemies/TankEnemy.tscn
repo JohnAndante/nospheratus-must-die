@@ -8,7 +8,7 @@ size_override = Vector2(10, 18)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6a5jv"]
 radius = 4.0
-height = 12.0
+height = 10.0
 
 [sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_1jm2f"]
 _data = PackedByteArray("AAADAAUAAAABAAAACgAAAAMAAABQAAAAUklGRkgAAABXRUJQVlA4TDsAAAAvCYAAEE8wICMyNGrbtmHDgEc79YUgs+PEAzgQi0HBMAwyQLPFEEASAZwhhxhucIabR/Q/lBpzv1RqAAA=")
@@ -18,6 +18,8 @@ size_override = Vector2(10, 3)
 script = ExtResource("1_tank")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+z_as_relative = false
+y_sort_enabled = true
 texture_filter = 1
 position = Vector2(0, -3)
 texture = SubResource("PortableCompressedTexture2D_6a5jv")

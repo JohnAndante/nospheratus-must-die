@@ -27,6 +27,8 @@ var enemies_killed_this_wave = 0
 var enemies_per_wave = 12
 
 func _ready():
+	y_sort_enabled = true
+
 	# Configurar sinais do player
 	player.health_changed.connect(_on_player_health_changed)
 	player.level_changed.connect(_on_player_level_changed)

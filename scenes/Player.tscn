@@ -8,7 +8,7 @@ size_override = Vector2(12, 22)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_p0vlq"]
 radius = 4.0
-height = 12.0
+height = 10.0
 
 [sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_v6fml"]
 _data = PackedByteArray("AAADAAUAAAABAAAACgAAAAMAAABQAAAAUklGRkgAAABXRUJQVlA4TDsAAAAvCYAAEE8wICMyNGrbtmHDgEc79YUgs+PEAzgQi0HBMAwyQLPFEEASAZwhhxhucIabR/Q/lBpzv1RqAAA=")
@@ -19,8 +19,9 @@ script = ExtResource("1_5n7x2")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_as_relative = false
+y_sort_enabled = true
 texture_filter = 1
-position = Vector2(0, -4)
+position = Vector2(0, -5)
 texture = SubResource("PortableCompressedTexture2D_p0vlq")
 metadata/_aseprite_wizard_interface_config_ = {
 "pending_changes": {}
@@ -54,7 +55,7 @@ modulate = Color(0.0488575, 9.62615e-08, 0.351445, 0.501961)
 z_index = -1
 z_as_relative = false
 texture_filter = 1
-position = Vector2(0, 6.5)
+position = Vector2(0, 5.5)
 texture = SubResource("PortableCompressedTexture2D_v6fml")
 metadata/_aseprite_wizard_interface_config_ = {
 "pending_changes": {}
