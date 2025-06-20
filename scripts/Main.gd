@@ -47,6 +47,7 @@ func _unhandled_input(event):
 	# Debug mode toggle (F10)
 	if event is InputEventKey and event.pressed and event.keycode == KEY_F10:
 		debug_mode = !debug_mode
+		player.queue_redraw()
 		update_debug_ui()
 		print("Debug mode: ", "ON" if debug_mode else "OFF")
 
@@ -164,6 +165,8 @@ func update_kill_count_ui():
 	kill_count_label.text = "Kills: " + str(enemies_killed_this_wave) + "/" + str(enemies_per_wave)
 
 func _on_show_upgrade_menu():
+	toggle_pause()  # Pausar o jogo ao abrir o menu de upgrades
+	# Mostrar menu de upgrades com as opções disponíveis
 	var available_upgrades = WeaponManager.get_available_upgrades(player.get_weapons(), player.level)
 	upgrade_menu.show_upgrades(available_upgrades)
 

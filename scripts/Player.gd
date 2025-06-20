@@ -221,7 +221,7 @@ func get_magnet_range() -> float:
 
 # Debug visual - círculos de detecção
 func _draw():
-	if OS.is_debug_build():
+	if "Main" in get_tree().get_nodes_in_group("root") and get_tree().get_root().get_node("Main").debug_mode:
 		# Círculo de detecção de inimigos (amarelo) - usa o detection_range
 		draw_arc(Vector2.ZERO, detection_range, 0, TAU, 64, Color.YELLOW, 2.0)
 
