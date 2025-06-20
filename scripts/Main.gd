@@ -15,9 +15,9 @@ var debug_mode = false
 @onready var game_over_screen = $UI/GameOver
 @onready var pause_menu = $UI/PauseMenu
 
-var enemy_scene = preload("res://scenes/Enemy.tscn")
-var fast_enemy_scene = preload("res://scenes/FastEnemy.tscn")
-var tank_enemy_scene = preload("res://scenes/TankEnemy.tscn")
+var enemy_scene = preload("res://scenes/enemies/RegularEnemy.tscn")
+var fast_enemy_scene = preload("res://scenes/enemies/FastEnemy.tscn")
+var tank_enemy_scene = preload("res://scenes/enemies/TankEnemy.tscn")
 
 var enemies = []
 var spawn_timer = 0.0
@@ -217,8 +217,6 @@ func _on_player_level_changed(level):
 
 func _on_player_xp_changed(xp, xp_to_next):
 	xp_bar.value = (float(xp) / xp_to_next) * 100
-
-
 
 func update_debug_ui():
 	if debug_label:
