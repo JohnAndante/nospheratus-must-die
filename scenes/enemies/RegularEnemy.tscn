@@ -1,0 +1,44 @@
+[gd_scene load_steps=4 format=4 uid="uid://b8k4x7qam2n5"]
+
+[ext_resource type="Script" uid="uid://xhb0rfs1iwgu" path="res://scripts/enemies/RegularEnemy.gd" id="1_1qrqe"]
+
+[sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_3gvst"]
+_data = PackedByteArray("AAADAAUAAAABAAAACgAAABAAAACMAAAAUklGRoQAAABXRUJQVlA4THcAAAAvCcADEDegJgAShpMA9ODH1b+DwdQ0kgKdkbdCACLwb4fKTAAyTpcWeuifh+2d/wCAwzlT5fluyx9wFNm2Ex3i+j0HRANgABxk1mne9S9iRET0P8AB8wSmOQHzPwFSyS2VLoWQr0JXE0Q/BFszBlUzLhgJkBiAAQA=")
+size_override = Vector2(10, 16)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1qrqe"]
+radius = 8.0
+height = 22.0
+
+[node name="Enemy" type="CharacterBody2D" groups=["enemies"]]
+script = ExtResource("1_1qrqe")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -5)
+scale = Vector2(2, 2)
+texture = SubResource("PortableCompressedTexture2D_3gvst")
+metadata/_aseprite_wizard_interface_config_ = {
+"layer_section": true,
+"pending_changes": {},
+"slice_section": false
+}
+metadata/_aseprite_wizard_config_ = {
+"embed_tex": true,
+"i_mode": 1,
+"keep_anim_length": false,
+"layers": [],
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": true,
+"player": "",
+"slice": "",
+"source": "res://assets/regular_enemy.aseprite",
+"source_uid": 7346767710189887376
+}
+metadata/_aseprite_wizard_source_file_hash_ = "cf74781139e5b709c3d26bb6e30e9aa5"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, -1)
+shape = SubResource("CapsuleShape2D_1qrqe")

@@ -1,0 +1,41 @@
+[gd_scene load_steps=4 format=4 uid="uid://dfye6cspe12vi"]
+
+[ext_resource type="Script" uid="uid://csj47y0rs0o5a" path="res://scripts/enemies/FastEnemy.gd" id="1_fast"]
+
+[sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_nr72c"]
+_data = PackedByteArray("AAADAAUAAAABAAAACgAAAA0AAACAAAAAUklGRngAAABXRUJQVlA4TGwAAAAvCQADEDegJgAShpMA9ODH1b+DwdQ0kgKdkbdCACLwb4fKTAAyTpcWeuifh+2d/wCAwzlT5fluyx9gFEmSolq4ey9KGSGHb27/HtZERP+D5ICcgdaAnMd9wqUe+GUuL7LKKktsOhPXLEikgQM=")
+size_override = Vector2(10, 13)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nr72c"]
+radius = 8.0
+height = 18.0
+
+[node name="FastEnemy" type="CharacterBody2D" groups=["enemies"]]
+script = ExtResource("1_fast")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(2, 2)
+texture = SubResource("PortableCompressedTexture2D_nr72c")
+metadata/_aseprite_wizard_interface_config_ = {
+"pending_changes": {}
+}
+metadata/_aseprite_wizard_config_ = {
+"embed_tex": true,
+"i_mode": 1,
+"keep_anim_length": false,
+"layers": [],
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"player": "",
+"slice": "",
+"source": "res://assets/fast_enemy.aseprite",
+"source_uid": 4047481141199246029
+}
+metadata/_aseprite_wizard_source_file_hash_ = "929af191a9674f97d05c505efbf7b107"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 5)
+shape = SubResource("CapsuleShape2D_nr72c")
