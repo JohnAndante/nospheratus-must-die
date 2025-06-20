@@ -7,7 +7,7 @@ signal show_upgrade_menu
 signal player_died
 
 # Variáveis do jogador
-@export var speed = 100.0
+@export var speed = 50.0
 @export var max_health = 100
 
 var health = 100
@@ -15,10 +15,10 @@ var level = 1
 var xp = 0
 var xp_to_next = 30
 
-var detection_range = 200.0  # Alcance de detecção de inimigos
+var detection_range = 75.0   # Alcance de detecção de inimigos
 var regeneration_rate = 0.0  # Vida por segundo
 var critical_chance = 0.0    # Chance de crítico
-var base_magnet_range = 20.0 # Alcance base para coleta de XP
+var base_magnet_range = 10.0 # Alcance base para coleta de XP
 var xp_magnet_range = 0.0    # Alcance extra para coleta de XP
 var armor_reduction = 0.0    # Redução de dano
 

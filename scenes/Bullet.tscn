@@ -7,7 +7,7 @@ _data = PackedByteArray("AAADAAUAAAABAAAABAAAAAQAAABMAAAAUklGRkQAAABXRUJQVlA4TDg
 size_override = Vector2(4, 4)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4utqk"]
-radius = 4.0
+radius = 2.0
 
 [node name="Bullet" type="Area2D"]
 script = ExtResource("1_7y2k8")
@@ -15,7 +15,6 @@ script = ExtResource("1_7y2k8")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 0, 1)
 texture_filter = 1
-scale = Vector2(2, 2)
 texture = SubResource("PortableCompressedTexture2D_hf8mt")
 metadata/_aseprite_wizard_interface_config_ = {
 "layer_section": false,

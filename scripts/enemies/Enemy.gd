@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 signal died(enemy)
 
-@export var speed: float = 50.0
+@export var speed: float = 25.0
 @export var health: float = 60
 @export var damage: float = 10
 @export var attack_cooldown: float = 1.0

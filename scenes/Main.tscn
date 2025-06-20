@@ -11,8 +11,9 @@
 script = ExtResource("1_8yh4f")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(1.25, 1.25)
+zoom = Vector2(3.5, 3.5)
 script = ExtResource("2_c01mt")
+follow_speed = 2.0
 
 [node name="Player" parent="." instance=ExtResource("2_x3b7g")]
 

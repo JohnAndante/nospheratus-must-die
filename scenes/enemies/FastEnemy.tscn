@@ -7,15 +7,14 @@ _data = PackedByteArray("AAADAAUAAAABAAAACgAAAA0AAACAAAAAUklGRngAAABXRUJQVlA4TGw
 size_override = Vector2(10, 13)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nr72c"]
-radius = 8.0
-height = 18.0
+radius = 4.0
+height = 12.0
 
 [node name="FastEnemy" type="CharacterBody2D" groups=["enemies"]]
 script = ExtResource("1_fast")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
-scale = Vector2(2, 2)
 texture = SubResource("PortableCompressedTexture2D_nr72c")
 metadata/_aseprite_wizard_interface_config_ = {
 "pending_changes": {}
@@ -37,5 +36,4 @@ metadata/_aseprite_wizard_config_ = {
 metadata/_aseprite_wizard_source_file_hash_ = "929af191a9674f97d05c505efbf7b107"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1, 5)
 shape = SubResource("CapsuleShape2D_nr72c")
