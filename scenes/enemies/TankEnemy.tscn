@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=4 uid="uid://bagxqogqnxj0s"]
+[gd_scene load_steps=5 format=4 uid="uid://bagxqogqnxj0s"]
 
 [ext_resource type="Script" uid="uid://dt3bxys21kehv" path="res://scripts/enemies/TankEnemy.gd" id="1_tank"]
 
@@ -9,6 +9,10 @@ size_override = Vector2(10, 18)
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6a5jv"]
 radius = 4.0
 height = 12.0
+
+[sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_1jm2f"]
+_data = PackedByteArray("AAADAAUAAAABAAAACgAAAAMAAABQAAAAUklGRkgAAABXRUJQVlA4TDsAAAAvCYAAEE8wICMyNGrbtmHDgEc79YUgs+PEAzgQi0HBMAwyQLPFEEASAZwhhxhucIabR/Q/lBpzv1RqAAA=")
+size_override = Vector2(10, 3)
 
 [node name="TankEnemy" type="CharacterBody2D" groups=["enemies"]]
 script = ExtResource("1_tank")
@@ -38,3 +42,29 @@ metadata/_aseprite_wizard_source_file_hash_ = "b47f5d0cd0e1edca4ddc384056a58287"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_6a5jv")
+
+[node name="SpriteShadow2D" type="Sprite2D" parent="."]
+modulate = Color(0.226742, 2.15084e-07, 4.81308e-08, 0.501961)
+z_index = -1
+z_as_relative = false
+texture_filter = 1
+position = Vector2(0, 5.5)
+texture = SubResource("PortableCompressedTexture2D_1jm2f")
+metadata/_aseprite_wizard_interface_config_ = {
+"pending_changes": {}
+}
+metadata/_aseprite_wizard_config_ = {
+"embed_tex": true,
+"i_mode": 1,
+"keep_anim_length": false,
+"layers": [],
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"player": "",
+"slice": "",
+"source": "res://assets/simple_shadow.aseprite",
+"source_uid": 8910400086484310495
+}
+metadata/_aseprite_wizard_source_file_hash_ = "125d993283a074287e5736a4a3f5f94f"

@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=4 uid="uid://hub3utff3g0g"]
+[gd_scene load_steps=5 format=4 uid="uid://hub3utff3g0g"]
 
 [ext_resource type="Script" uid="uid://coowwofkqp8sr" path="res://scripts/Player.gd" id="1_5n7x2"]
 
@@ -9,6 +9,10 @@ size_override = Vector2(12, 22)
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_p0vlq"]
 radius = 4.0
 height = 12.0
+
+[sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_v6fml"]
+_data = PackedByteArray("AAADAAUAAAABAAAACgAAAAMAAABQAAAAUklGRkgAAABXRUJQVlA4TDsAAAAvCYAAEE8wICMyNGrbtmHDgEc79YUgs+PEAzgQi0HBMAwyQLPFEEASAZwhhxhucIabR/Q/lBpzv1RqAAA=")
+size_override = Vector2(10, 3)
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_5n7x2")
@@ -44,5 +48,31 @@ shape = SubResource("CapsuleShape2D_p0vlq")
 
 [node name="WeaponTimer" type="Timer" parent="."]
 autostart = true
+
+[node name="SpriteShadow2D" type="Sprite2D" parent="."]
+modulate = Color(0.0488575, 9.62615e-08, 0.351445, 0.501961)
+z_index = -1
+z_as_relative = false
+texture_filter = 1
+position = Vector2(0, 6.5)
+texture = SubResource("PortableCompressedTexture2D_v6fml")
+metadata/_aseprite_wizard_interface_config_ = {
+"pending_changes": {}
+}
+metadata/_aseprite_wizard_config_ = {
+"embed_tex": true,
+"i_mode": 1,
+"keep_anim_length": false,
+"layers": [],
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"player": "",
+"slice": "",
+"source": "res://assets/simple_shadow.aseprite",
+"source_uid": 8910400086484310495
+}
+metadata/_aseprite_wizard_source_file_hash_ = "125d993283a074287e5736a4a3f5f94f"
 
 [connection signal="timeout" from="WeaponTimer" to="." method="_on_weapon_timer_timeout"]
