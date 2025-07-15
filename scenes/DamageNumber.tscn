@@ -1,9 +1,19 @@
-[gd_scene load_steps=2 format=3 uid="uid://d2wnjd1vm23nk"]
+[gd_scene load_steps=4 format=3 uid="uid://d2wnjd1vm23nk"]
 
+[ext_resource type="FontFile" uid="uid://besgfxi76jfvu" path="res://assets/fonts/fs-pixel-sans-unicode-regular.ttf" id="1_5t1lh"]
 [ext_resource type="Script" uid="uid://c2udxaivclpnc" path="res://scripts/DamageNumber.gd" id="1_damage"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_u56du"]
+font = ExtResource("1_5t1lh")
+
 [node name="DamageNumber" type="Label"]
+texture_filter = 1
+offset_left = -6.0
+offset_top = -3.0
+offset_right = 6.0
+offset_bottom = 13.0
 text = "20"
+label_settings = SubResource("LabelSettings_u56du")
 horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("1_damage")

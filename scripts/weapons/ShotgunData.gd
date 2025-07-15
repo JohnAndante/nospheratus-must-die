@@ -5,7 +5,7 @@ func _init():
     name = "Shotgun"
     damage = 12.0
     fire_rate = 1.5
-    max_level = 5
+    max_level = 20
     projectiles = 2
 
 func apply_upgrade_effects():
@@ -16,9 +16,11 @@ func apply_upgrade_effects():
             damage += damage * 0.15
         4, 8:      # Tiro mais rápido
             fire_rate = max(0.8, fire_rate - 0.2)
-        5, 9:      # Combo: dano + projétil
+        5, 9, 15, 20:      # Combo: dano + projétil
             damage += damage * 0.10
             projectiles += 1
+        _:
+            damage += damage * 0.05
 
 func get_angle_offset() -> float:
     # O ângulo de dispersão é aleatório, entre -15 e 15 graus
@@ -48,10 +50,10 @@ func get_upgrade_description() -> String:
             return "Dano +15%"
         4, 8:
             return "Tiro mais rápido (-0.2s)"
-        5, 9:
+        5, 9, 15, 20:
             return "Dano +10% e mais projéteis +1"
         _:
-            return "Shotgun melhorada"
+            return "Dano +5%"
 
 func get_available_upgrade_types() -> Array[String]:
     return ["projectiles", "damage", "fire_rate", "combo"]
