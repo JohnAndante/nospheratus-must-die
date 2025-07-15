@@ -5,7 +5,7 @@ func _init():
     name = "Laser"
     damage = 10.0
     fire_rate = 2.0
-    max_level = 10
+    max_level = 20
     penetration = 0
 
 func apply_upgrade_effects():
@@ -16,9 +16,11 @@ func apply_upgrade_effects():
             penetration += 1
         4, 8:      # Tiro mais rápido
             fire_rate = max(0.5, fire_rate - 0.3)
-        5, 9, 10:  # Combo: dano + penetração
+        5, 9, 10, 15, 20:  # Combo: dano + penetração
             damage += damage * 0.10
             penetration += 1
+        _:
+            damage += damage * 0.05  # Melhoria padrão de dano
 
 func shoot(player, direction: Vector2, bullet_scene):
     var bullet = bullet_scene.instantiate()
@@ -41,10 +43,10 @@ func get_upgrade_description() -> String:
             return "Penetração +1"
         4, 8:
             return "Tiro mais rápido (-0.3s)"
-        5, 9, 10:
+        5, 9, 10, 15, 20:
             return "Dano +10% e penetração +1"
         _:
-            return "Laser melhorado"
+            return "Dano +5%"
 
 func get_available_upgrade_types() -> Array[String]:
     return ["damage", "penetration", "fire_rate", "combo"]
