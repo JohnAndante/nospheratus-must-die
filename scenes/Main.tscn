@@ -26,31 +26,37 @@ anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 20.0
-offset_top = -40.0
-offset_right = 220.0
-offset_bottom = -20.0
-value = 100.0
+offset_top = -133.0
+offset_right = 120.0
+offset_bottom = -33.0
+grow_vertical = 0
+tooltip_text = "Vida do jogador"
+value = 49.55
+fill_mode = 3
+show_percentage = false
 
 [node name="LevelLabel" type="Label" parent="UI"]
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 20.0
-offset_top = -70.0
-offset_right = 120.0
-offset_bottom = -50.0
+offset_left = 22.0
+offset_top = -169.0
+offset_right = 118.0
+offset_bottom = -146.0
+grow_vertical = 0
 text = "Level: 1"
+horizontal_alignment = 1
 
 [node name="XPBar" type="ProgressBar" parent="UI"]
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
+anchors_preset = -1
+anchor_top = 0.969
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -220.0
-offset_top = -40.0
-offset_right = -20.0
-offset_bottom = -20.0
+offset_top = 0.0879517
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_horizontal = 3
+show_percentage = false
 
 [node name="WaveLabel" type="Label" parent="UI"]
 anchors_preset = 1
