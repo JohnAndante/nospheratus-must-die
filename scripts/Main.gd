@@ -8,6 +8,7 @@ var debug_mode = false
 @onready var health_bar = $UI/HealthBar
 @onready var level_label = $UI/LevelLabel
 @onready var xp_bar = $UI/XPBar
+@onready var xp_bar_container = $UI/XPBarContainer
 @onready var wave_label = $UI/WaveLabel
 @onready var kill_count_label = $UI/KillCountLabel
 @onready var debug_label = $UI/DebugLabel
@@ -222,6 +223,7 @@ func _on_player_level_changed(level):
 
 func _on_player_xp_changed(xp, xp_to_next):
 	xp_bar.value = (float(xp) / xp_to_next) * 100
+	xp_bar_container.update_xp_display(xp, xp_to_next)
 
 func update_debug_ui():
 	if debug_label:
